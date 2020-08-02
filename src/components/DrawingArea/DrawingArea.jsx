@@ -27,14 +27,8 @@ const DrawingArea = (props) => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    canvas.width = window.innerWidth * 2 - 50;
-    canvas.height = window.innerHeight;
-    // canvas.width = window.innerWidth * 2;
-    // canvas.height = window.innerHeight * 2;
-    canvas.style.width = window.innerWidth - 50 + "px";
-    canvas.style.height = window.innerHeight / 2 + "px";
-    // canvas.style.width = `${window.innerWidth}px`;
-    // canvas.style.height = `${window.innerHeight}px`;
+    canvas.width = canvas.clientWidth * 2;
+    canvas.height = canvas.clientHeight * 2;
 
     const context = canvas.getContext("2d");
     context.scale(2, 2);
@@ -102,6 +96,7 @@ const DrawingArea = (props) => {
         display: "flex",
         justifyContent: "space-evenly",
         height: "100%",
+        width: "100%",
         flexDirection: "column",
         alignItems: "center",
       }}
@@ -112,20 +107,25 @@ const DrawingArea = (props) => {
           border: "2px solid black",
           borderRadius: "10px",
           backgroundColor: "white",
+          width: "90%",
+          height: "30vh",
         }}
         onMouseDown={startDrawingHandler}
         onMouseUp={finishDrawingHandler}
         onMouseMove={drawHandler}
+        onTouchStart={startDrawingHandler}
+        onTouchEnd={finishDrawingHandler}
+        onTouchMove={drawHandler}
         ref={canvasRef}
       />
 
       <button
         onClick={clearCanvasHandler}
         style={{
-          padding: "5px 10px",
+          padding: "5px 1rem",
           backgroundColor: "black",
           color: "white",
-          width: "5vw",
+          fontSize: "1.2rem",
           cursor: "pointer",
         }}
       >
