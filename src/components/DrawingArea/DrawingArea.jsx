@@ -45,7 +45,12 @@ const DrawingArea = (props) => {
   };
 
   const startDrawingHandler = ({ nativeEvent }) => {
-    const { offsetX, offsetY } = nativeEvent;
+    let { offsetX, offsetY } = nativeEvent;
+    if (nativeEvent.touches) {
+      offsetX = parseInt(nativeEvent.touches[0].pageX);
+      offsetY = parseInt(nativeEvent.touches[0].pageY);
+    }
+
     startDrawing(offsetX, offsetY);
     socket.emit("start_draw", {
       offsetX,
@@ -72,7 +77,12 @@ const DrawingArea = (props) => {
     if (!isDrawing) {
       return;
     }
-    const { offsetX, offsetY } = nativeEvent;
+
+    let { offsetX, offsetY } = nativeEvent;
+    if (nativeEvent.touches) {
+      offsetX = parseInt(nativeEvent.touches[0].pageX);
+      offsetY = parseInt(nativeEvent.touches[0].pageY);
+    }
     draw(offsetX, offsetY);
     socket.emit("draw", {
       offsetX,
